@@ -1,3 +1,5 @@
+import tensorflow as tf
+
 class SignalGenerator:
 
   def __init__(self, keywords, samp_rate, frame_length, frame_step, num_bins = None,
