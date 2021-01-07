@@ -7,6 +7,7 @@ class SignalGenerator:
                lower_frequency=None, upper_frequency=None,
               num_coefficients=None, mfccs=False):
     self.keywords = keywords
+    self.mapping = {'down':0, 'stop':1, 'right':2, 'left':3, 'up':4, 'yes':5, 'no':6, 'go':7}
     self.samp_rate = samp_rate
     self.frame_length = frame_length
     self.frame_step = frame_step
@@ -27,7 +28,7 @@ class SignalGenerator:
   def read(self, path):
     parts = tf.strings.split(path, os.path.sep)
     label = parts[-2]
-    label_id = tf.argmax(label == self.keywords)
+    label_id = self.mapping[label]
     audio_binary = tf.io.read_file(path)
     audio,_ = tf.audio.decode_wav(audio_binary)
     audio = tf.squeeze(audio, axis=1)
