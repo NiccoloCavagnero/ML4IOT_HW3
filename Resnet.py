@@ -30,9 +30,9 @@ def residual_block(x: Tensor, downsample: bool, filters: int, kernel_size: int =
     out = relu_bn(out)
     return out
 
-def create_res_net(blocks=[3,4]):
+def create_res_net(shape=(49,10,1),blocks=[3,4]):
     
-    inputs = Input(shape=(49,10, 1))
+    inputs = Input(shape=shape)
     num_filters = 64
     
     t = BatchNormalization()(inputs)
