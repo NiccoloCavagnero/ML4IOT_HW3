@@ -30,7 +30,7 @@ def residual_block(x: Tensor, downsample: bool, filters: int, kernel_size: int =
     out = relu_bn(out)
     return out
 
-def create_res_net():
+def create_res_net(blocks=[3,4]):
     
     inputs = Input(shape=(49,10, 1))
     num_filters = 64
@@ -42,7 +42,7 @@ def create_res_net():
                padding="same")(t)
     t = relu_bn(t)
     
-    num_blocks_list = [3, 4]
+    num_blocks_list = blocks
     for i in range(len(num_blocks_list)):
         num_blocks = num_blocks_list[i]
         for j in range(num_blocks):
