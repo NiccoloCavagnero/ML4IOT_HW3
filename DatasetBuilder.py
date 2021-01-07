@@ -28,7 +28,7 @@ class SignalGenerator:
   def read(self, path):
     parts = tf.strings.split(path, os.path.sep)
     label = parts[-2]
-    label_id = self.mapping[label]
+    label_id = self.mapping[str(label)]
     audio_binary = tf.io.read_file(path)
     audio,_ = tf.audio.decode_wav(audio_binary)
     audio = tf.squeeze(audio, axis=1)
