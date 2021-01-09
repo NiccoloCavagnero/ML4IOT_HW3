@@ -30,7 +30,7 @@ def residual_block(x: Tensor, downsample: bool, filters: int, kernel_size: int =
     out = relu_bn(out)
     return out
 
-def create_res_net(shape=(49,10,1),blocks=[3,4]):
+def create_res_net(shape=(49,10,1),blocks=[3,4],drop=False):
     
     inputs = Input(shape=shape)
     num_filters = 64
@@ -51,8 +51,11 @@ def create_res_net(shape=(49,10,1),blocks=[3,4]):
     
     t = AveragePooling2D(4)(t)
     t = Flatten()(t)
-    t = Dense(128, activation='relu')(t)
-    t = Dropout(0.5)(t)
+    
+    if drop:
+      t = Dense(128, activation='relu')(t)
+      t = Dropout(drop)(t)
+      
     outputs = Dense(8, activation='softmax')(t)
     
     model = Model(inputs, outputs)
