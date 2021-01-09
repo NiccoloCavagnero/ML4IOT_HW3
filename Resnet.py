@@ -2,7 +2,7 @@
 
 from tensorflow import Tensor
 from tensorflow.keras.layers import Input, Conv2D, ReLU, BatchNormalization,\
-                                    Add, AveragePooling2D, Flatten, Dense
+                                    Add, AveragePooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.models import Model
 
 def relu_bn(inputs: Tensor) -> Tensor:
@@ -51,6 +51,8 @@ def create_res_net(shape=(49,10,1),blocks=[3,4]):
     
     t = AveragePooling2D(4)(t)
     t = Flatten()(t)
+    t = Dense(128, activation='relu')(t)
+    t = Dropout(0.5)(t)
     outputs = Dense(8, activation='softmax')(t)
     
     model = Model(inputs, outputs)
