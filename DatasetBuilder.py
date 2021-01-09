@@ -80,6 +80,6 @@ class SignalGenerator:
     ds = ds.batch(32)
     ds = ds.cache()
     if train:
-      ds = ds.shuffle(500, reshuffle_each_iteration=True)
+      ds = ds.shuffle(800, reshuffle_each_iteration=True)
 
     return ds
